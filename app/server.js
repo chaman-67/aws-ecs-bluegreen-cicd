@@ -7,7 +7,7 @@ const health = require('./routes/health');
 const api = require('./routes/api');
 
 const PORT = process.env.PORT || 3000;
-const APP_VERSION = process.env.APP_VERSION || require('../package.json').version || 'dev';
+const APP_VERSION = process.env.APP_VERSION || require('./package.json').version || 'dev';
 const BUILD_SHA = process.env.BUILD_SHA || 'local';
 
 const app = express();
