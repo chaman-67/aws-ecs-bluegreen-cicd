@@ -1,0 +1,11 @@
+node_modules/
+coverage/
+*.log
+.env
+.env.*
+.DS_Store
+.idea/
+.vscode/
+.last-deployed-td.txt
+.last-deployment-id.txt
+*.tar.gz

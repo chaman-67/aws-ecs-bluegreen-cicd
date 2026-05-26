@@ -1,0 +1,15 @@
+.git
+.github
+.gitignore
+.dockerignore
+node_modules
+coverage
+*.log
+.env
+.env.*
+docs
+scripts
+Jenkinsfile
+docker-compose.yml
+README.md
+LICENSE
