@@ -2,8 +2,8 @@
 
 > Production-grade CI/CD pipeline for a containerized Node.js service — **Jenkins + GitHub Actions → Docker → ECR → ECS with Blue/Green deployment via CodeDeploy**. Includes automated rollback, Prometheus metrics, multi-stage Docker build, and image vulnerability scanning.
 
-![CI](https://github.com/sipldata/aws-ecs-bluegreen-cicd/actions/workflows/ci.yml/badge.svg)
-![Deploy](https://github.com/sipldata/aws-ecs-bluegreen-cicd/actions/workflows/deploy.yml/badge.svg)
+![CI](https://github.com/chaman-67/aws-ecs-bluegreen-cicd/actions/workflows/ci.yml/badge.svg)
+![Deploy](https://github.com/chaman-67/aws-ecs-bluegreen-cicd/actions/workflows/deploy.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Jenkins](https://img.shields.io/badge/CI-Jenkins-D24939?logo=jenkins&logoColor=white)
 ![Docker](https://img.shields.io/badge/container-Docker-2496ED?logo=docker&logoColor=white)
@@ -137,7 +137,7 @@ flowchart TD
 
 ```bash
 # clone and run with docker-compose
-git clone https://github.com/sipldata/aws-ecs-bluegreen-cicd.git
+git clone https://github.com/chaman-67/aws-ecs-bluegreen-cicd.git
 cd aws-ecs-bluegreen-cicd
 docker compose up --build
 
@@ -333,5 +333,5 @@ MIT — see [LICENSE](LICENSE)
 ---
 
 <div align="center">
-  <sub>Built by <a href="https://github.com/sipldata">Chaman Kumar Chaurasia</a> — DevOps Engineer @ Mantra Tech Venture</sub>
+  <sub>Built by <a href="https://github.com/chaman-67">Chaman Kumar Chaurasia</a> — DevOps Engineer @ Mantra Tech Venture</sub>
 </div>
