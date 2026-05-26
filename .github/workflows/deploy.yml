@@ -1,0 +1,64 @@
+name: Deploy to ECS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Image tag to deploy'
+        required: true
+        default: 'latest'
+
+env:
+  AWS_REGION: ap-south-1
+  ECR_REPO: sample-api
+  ECS_CLUSTER: production
+  ECS_SERVICE: sample-api
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://api.example.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::ACCOUNT_ID:role/github-actions-deploy
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build & push image
+        env:
+          REG: ${{ steps.ecr.outputs.registry }}
+          TAG: ${{ github.event.inputs.image_tag || github.sha }}
+        run: |
+          docker build \
+            --build-arg APP_VERSION=$TAG \
+            --build-arg BUILD_SHA=${GITHUB_SHA::7} \
+            -t $REG/$ECR_REPO:$TAG \
+            -t $REG/$ECR_REPO:latest .
+          docker push $REG/$ECR_REPO:$TAG
+          docker push $REG/$ECR_REPO:latest
+          echo "IMAGE=$REG/$ECR_REPO:$TAG" >> $GITHUB_ENV
+
+      - name: Blue/Green deploy via CodeDeploy
+        run: ./scripts/deploy.sh "$IMAGE"
+
+      - name: Smoke test
+        run: ./scripts/healthcheck.sh https://api.example.com/health
+
+      - name: Rollback on failure
+        if: failure()
+        run: ./scripts/rollback.sh
